@@ -29,6 +29,9 @@ gem "solid_queue"
 gem "solid_cable"
 
 gem "byebug"
+gem "open3"
+gem "clockwork"
+gem "solid_queue_dashboard", "~> 0.2.0"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
@@ -51,10 +54,12 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  gem "dotenv"
 end
+
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 end
-

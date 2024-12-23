@@ -1,2 +1,20 @@
-<h1>Contents#new</h1>
-<p>Find me in app/views/contents/new.html.erb</p>
+<% @content.errors do |error| %>
+  <%= "#{errors.type} #{error.message}" %>
+<% end %> 
+
+<%= form_with model: @content do |form| %>
+  <%= form.label :title %>
+  <br>
+  <br>
+  <%= form.text_field :title %>
+  <br>
+  <br>
+
+  <%= form.label :content %>
+  <br>
+  <br>
+  <%= form.text_area :body, cols: 40, rows: 10 %>
+  <br>
+  <br>
+  <%= form.submit %>
+<% end %>
