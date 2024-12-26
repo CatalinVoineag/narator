@@ -2,6 +2,8 @@
 
 <% @contents.each do |content| %> 
   <h1><%= content.title %></h1>
+  <%= button_to 'Delete', content_path(content), method: :delete %>
+  <br>
 
   <% if content.audio.present? %> 
     <%= audio_tag(content.audio, controls: true) %>

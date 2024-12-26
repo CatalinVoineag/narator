@@ -5,24 +5,26 @@ class Content < ApplicationRecord
   has_one_attached :audio
 
   def run_kernel_command
-    system(kernel_command)
+    system(kernel_command.body)
   end
 
   def self.sanitize(content)
-    # Change 18m to millions same for billions
-    sanitised_content = content.gsub("%", " percent")
-      .gsub("$", " dollars ")
-      .gsub("€", " euros ")
-      .gsub("£", " pounds ")
-      .gsub("\n", "")
-      .gsub("(", "")
-      .gsub(")", "")
-      .gsub("[", "")
-      .gsub("]", "")
-      .gsub("]", "")
-      .gsub("“", "")
-      .gsub("”", "")
+    sanitised_content = content.gsub("\n", "")
+      content.gsub(";", ",")
+      .gsub(/£(\d+)trn/, '\1 trillion pounds')
+      .gsub(/$(\d+)trn/, '\1 trillion dollars')
+      .gsub(/€(\d+)trn/, '\1 trillion euros')
+      .gsub(/\£(\d+)bn/, '\1 billion pounds')
+      .gsub(/\$(\d+)bn/, '\1 billion dollars')
+      .gsub(/\€(\d+)bn/, '\1 billion euros')
+      .gsub(/£(\d+)m/, '\1 million pounds')
+      .gsub(/\$(\d+)m/, '\1 million dollars')
+      .gsub(/€(\d+)m/, '\1 million euros')
+      .gsub(/(\d+)m/, '\1 million')
+      .gsub(/(\d+)pm/, '\1PM')
+      .gsub(/(\d+)am/, '\1AM')
+      .gsub(/(\d+)p/, '\1 pee')
 
-    sanitised_content
+    sanitised_content.strip
   end
 end
