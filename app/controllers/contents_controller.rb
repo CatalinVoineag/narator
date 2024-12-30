@@ -1,4 +1,6 @@
 class ContentsController < ApplicationController
+  before_action :set_content, only: %i[show edit destroy]
+
   def index
     @contents = Content.all
   end
@@ -10,7 +12,8 @@ class ContentsController < ApplicationController
   def create
     @content = Content.new(
       title: content_params[:title],
-      body: Content.sanitize(content_params[:body])
+      body: Content.sanitize(content_params[:body]),
+      category_id: content_params[:category_id]
     )
 
     if @content.save
@@ -22,12 +25,27 @@ class ContentsController < ApplicationController
     end
   end
 
-  def show
-    @content = Content.find(params[:id])
+  def show; end
+
+  def edit; end
+
+  def update
+    @content.assign_attributes(
+      title: content_params[:title],
+      body: Content.sanitize(content_params[:body]),
+      category_id: content_params[:category_id]
+    )
+
+    if @content.save
+      TextToSpeech.perform_later(@content)
+
+      redirect_to contents_path
+    else
+      render :edit
+    end
   end
 
   def destroy
-    @content = Content.find(params[:id])
     @content.destroy
 
     redirect_to contents_path
@@ -35,7 +53,11 @@ class ContentsController < ApplicationController
 
   private
 
+  def set_content
+    @content = Content.find(params.require(:id))
+  end
+
   def content_params
-    params.require(:content).permit(:body, :title)
+    params.require(:content).permit(:body, :title, :category_id)
   end
 end

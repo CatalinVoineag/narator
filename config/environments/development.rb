@@ -72,4 +72,5 @@ Rails.application.configure do
 
   config.active_job.queue_adapter = :solid_queue
   config.solid_queue.connects_to = { database: { writing: :queue } }
+  config.hosts << "32aa-2-31-103-61.ngrok-free.app"
 end

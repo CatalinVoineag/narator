@@ -1,0 +1,26 @@
+<% content.errors do |error| %>
+  <%= "#{errors.type} #{error.message}" %>
+<% end %> 
+
+<%= form_with model: content do |form| %>
+  <%= form.label :category %>
+  <br>
+  <br>
+  <%= form.select :category_id, Category.all.pluck(:name, :id) %>
+  <br>
+  <br>
+  <%= form.label :title %>
+  <br>
+  <br>
+  <%= form.text_field :title, size: 80 %>
+  <br>
+  <br>
+
+  <%= form.label :content %>
+  <br>
+  <br>
+  <%= form.text_area :body, cols: 80, rows: 30 %>
+  <br>
+  <br>
+  <%= form.submit %>
+<% end %>

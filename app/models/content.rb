@@ -4,6 +4,8 @@ class Content < ApplicationRecord
   has_one :kernel_command
   has_one_attached :audio
 
+  belongs_to :category
+
   def run_kernel_command
     system(kernel_command.body)
   end
