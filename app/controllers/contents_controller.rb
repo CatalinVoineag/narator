@@ -48,7 +48,7 @@ class ContentsController < ApplicationController
   def destroy
     @content.destroy
 
-    redirect_to contents_path
+    redirect_to category_path(@content.category)
   end
 
   private

@@ -2,15 +2,5 @@
 <%= link_to 'New', new_content_path %>
 
 <% Category.all.order(:name).each do |category| %> 
-  <h1><%= category.name %></h1>
-
-  <% @contents.each do |content| %> 
-    <h1><%= link_to content.title, edit_content_path(content) %></h1>
-    <%= button_to 'Delete', content_path(content), method: :delete %>
-    <br>
-
-    <% if content.audio.present? %> 
-      <%= audio_tag(content.audio, controls: true) %>
-    <% end %> 
-  <% end %> 
+  <h1><%= link_to category.name, category_path(category) %></h1>
 <% end %> 

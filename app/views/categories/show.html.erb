@@ -8,3 +8,15 @@
 
   <%= button_to "Destroy this category", @category, method: :delete %>
 </div>
+
+<% @contents.each do |content| %> 
+  <h1><%= link_to content.title, edit_content_path(content) %></h1>
+  <%= button_to 'Delete', content_path(content), method: :delete %>
+  <br>
+
+  <% if content.audio.present? %> 
+    <%= audio_tag(content.audio, controls: true) %>
+  <% end %> 
+<% end %> 
+
+<%# pagy_nav(@pagy) %>
